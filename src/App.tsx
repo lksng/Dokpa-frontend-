@@ -12,7 +12,8 @@ import MemoryWall from "./pages/landing-page/components/MemoryWall.tsx";
 import Footer from "./components/Footer";
 import AboutPage from "./pages/About.tsx";
 import Navbar from "./components/navbar.tsx";
-
+import DestinationCarousel from "./pages/landing-page/components/DestinationCarousel.tsx";
+import Vehicles from "./pages/Vehicles/Vehicles.tsx";
 
 
 
@@ -22,8 +23,9 @@ const HomePage: React.FC = () => {
     <div className="min-h-screen bg-gray-100 p-8">
       <Navbar />
       <Header />
-      <ActivityCarousel />
       <TopDestinationCarousel />
+      <DestinationCarousel/>
+      <ActivityCarousel />
       <Homestay />
       {/* <UserReviews/> */}
       <MemoryWall/>
@@ -39,6 +41,7 @@ const App: React.FC = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/contact" element={<ContactUs />} />
          <Route path="/about" element={<AboutPage/>} />
+           <Route path="/vehicles" element={<Vehicles/>} />
       </Routes>
       <div>
         <Footer/>

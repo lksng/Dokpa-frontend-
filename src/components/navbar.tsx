@@ -1,20 +1,59 @@
-import React, { useState } from "react";
-import Logo from "/Users/lobsangkesang/Documents/Mon-Voyage-Frontend/src/assets/yaklogo,jpg.jpeg"; // replace with your logo path
+import React, { useState, useEffect } from "react";
+import Logo from "/Users/lobsangkesang/Documents/Mon-Voyage-Frontend/src/assets/dokpadarkenlogo.png"; // replace with your logo path
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        // scrolling down → hide
+        setShowNavbar(false);
+      } else {
+        // scrolling up → show
+        setShowNavbar(true);
+      }
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
-    <nav className="w-full bg-white/80 shadow-sm sticky top-5 z-50 rounded-2xl">
-      <div className=" mx-auto px-4 sm:px-6 lg:px-12 py-3 flex justify-between items-center">
+    <nav
+      className={`w-full shadow-sm bg-white/40 sticky top-5 z-50 rounded-2xl transition-transform duration-300 ${
+        showNavbar ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
+      {/* Container with fixed max width */}
+      <div className="w-full max-w-[1280px]  xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 py-3 flex justify-between items-center">
         
-        {/* Logo + Brand */}
-        <div className="flex items-center gap-2 sm:gap-4">
-          <img src={Logo} alt="Logo" className="h-10 sm:h-12 md:h-14 w-auto object-contain" />
-          <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-black tracking-wide">
-            Dokpa.in
-          </span>
-        </div>
+{/* Logo + Brand */}
+<div className="flex items-center gap-4">
+  {/* Logo wrapper with scale */}
+  <div className="flex items-center justify-center h-14 sm:h-16 md:h-20 lg:h-24">
+    <img
+      src={Logo}
+      alt="Logo"
+      className="h-full w-auto object-contain scale-125 sm:scale-125 md:scale-150"
+    />
+  </div>
+
+  {/* Brand Name */}
+  <div className="flex flex-col leading-tight">
+    <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-black tracking-wide">
+      Dokpa.in
+    </span>
+    <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium text-gray-700">
+      འབྲོག་པ་
+    </span>
+  </div>
+</div>
+
+
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-8 lg:gap-12 font-semibold text-base lg:text-xl text-black">
