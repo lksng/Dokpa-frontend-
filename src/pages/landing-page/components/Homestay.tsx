@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MapPin, Star, Wifi, Car, Coffee, Mountain, Users, Phone, Mail, Heart } from 'lucide-react';
 
-interface Homestay {
+interface HomestayType {
   id: number;
   name: string;
   location: string;
@@ -20,6 +21,7 @@ interface Homestay {
 }
 
 const Homestay: React.FC = () => {
+  const navigate = useNavigate();
   const [selectedLocation, setSelectedLocation] = useState<string>('all');
   const [favorites, setFavorites] = useState<number[]>([]);
 
@@ -30,7 +32,7 @@ const Homestay: React.FC = () => {
     { id: 'dirang', name: 'Dirang', count: 5 }
   ];
 
-  const homestays: Homestay[] = [
+  const homestays: HomestayType[] = [
     {
       id: 1,
       name: "Mountain View Homestay",
@@ -157,6 +159,10 @@ const Homestay: React.FC = () => {
     );
   };
 
+  const handleHomestayClick = (homestayId: number) => {
+    navigate(`/homestay/${homestayId}`);
+  };
+
   return (
     <div className="w-full bg-gradient-to-br from-gray-50 to-white py-16 sm:py-20 lg:py-24">
       <div className="w-full max-w-[1280px] xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
@@ -194,7 +200,8 @@ const Homestay: React.FC = () => {
           {filteredHomestays.map((homestay) => (
             <div
               key={homestay.id}
-              className="min-w-[85%] sm:min-w-0 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden group hover:-translate-y-2"
+              onClick={() => handleHomestayClick(homestay.id)}
+              className="min-w-[85%] sm:min-w-0 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden group hover:-translate-y-2 cursor-pointer"
             >
               {/* Image Container */}
               <div className="relative overflow-hidden">
@@ -213,7 +220,10 @@ const Homestay: React.FC = () => {
 
                 {/* Favorite Button */}
                 <button
-                  onClick={() => toggleFavorite(homestay.id)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite(homestay.id);
+                  }}
                   className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 hover:bg-white transition-all duration-300"
                 >
                   <Heart 
@@ -282,6 +292,7 @@ const Homestay: React.FC = () => {
                       <div className="flex items-center gap-3 mt-1">
                         <a 
                           href={`tel:${homestay.contact.phone}`}
+                          onClick={(e) => e.stopPropagation()}
                           className="flex items-center gap-1 text-xs text-[#005246] hover:underline"
                         >
                           <Phone className="w-3 h-3" />
@@ -289,6 +300,7 @@ const Homestay: React.FC = () => {
                         </a>
                         <a 
                           href={`mailto:${homestay.contact.email}`}
+                          onClick={(e) => e.stopPropagation()}
                           className="flex items-center gap-1 text-xs text-[#005246] hover:underline"
                         >
                           <Mail className="w-3 h-3" />
@@ -300,8 +312,14 @@ const Homestay: React.FC = () => {
                 </div>
 
                 {/* Book Button */}
-                <button className="w-full bg-[#005246] text-white font-semibold py-3 rounded-xl hover:bg-[#00735f] transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
-                  Book Now
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleHomestayClick(homestay.id);
+                  }}
+                  className="w-full bg-[#005246] text-white font-semibold py-3 rounded-xl hover:bg-[#00735f] transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg"
+                >
+                  View Details
                 </button>
               </div>
             </div>

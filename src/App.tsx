@@ -1,34 +1,36 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-// import Navbar from "./Navbar";
-import ActivityCarousel from "./pages/landing-page/components/ActivityCarousel";
+// Components
+import Navbar from "./components/navbar.tsx";
+import Footer from "./components/Footer";
+
+// Landing Page Components
 import Header from "./pages/landing-page/components/Header.tsx";
 import Homestay from "./pages/landing-page/components/Homestay.tsx";
+import ActivityCarousel from "./pages/landing-page/components/ActivityCarousel";
 import TopDestinationCarousel from "./pages/landing-page/components/TopdestinationCarousel";
-import ContactUs from "/Users/lobsangkesang/Documents/Mon-Voyage-Frontend/src/pages/ContactUs/ContactUs.tsx"; // <-- import your ContactUs component
-// import UserReviews from "./pages/landing-page/components/UserReviews.tsx";
-import MemoryWall from "./pages/landing-page/components/MemoryWall.tsx";
-import Footer from "./components/Footer";
-import AboutPage from "./pages/About.tsx";
-import Navbar from "./components/navbar.tsx";
 import DestinationCarousel from "./pages/landing-page/components/DestinationCarousel.tsx";
+import MemoryWall from "./pages/landing-page/components/MemoryWall.tsx";
+// import UserReviews from "./pages/landing-page/components/UserReviews.tsx";
+// import HomestayProfile from "./pages/landing-page/components/HomestayProfile.tsx";
+
+// Other Pages
+import ContactUs from "/Users/lobsangkesang/Documents/Mon-Voyage-Frontend/src/pages/ContactUs/ContactUs.tsx";
+import AboutPage from "./pages/About.tsx";
 import Vehicles from "./pages/Vehicles/Vehicles.tsx";
-
-
-
 
 const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <Navbar />
       <Header />
-      <TopDestinationCarousel />
-      <DestinationCarousel/>
+      {/* <TopDestinationCarousel /> */}
+      <DestinationCarousel />
       <ActivityCarousel />
       <Homestay />
-      {/* <UserReviews/> */}
-      <MemoryWall/>
+      {/* <UserReviews /> */}
+      <MemoryWall />
     </div>
   );
 };
@@ -36,16 +38,15 @@ const HomePage: React.FC = () => {
 const App: React.FC = () => {
   return (
     <Router>
-      {/* <Navbar /> */}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/contact" element={<ContactUs />} />
-         <Route path="/about" element={<AboutPage/>} />
-           <Route path="/vehicles" element={<Vehicles/>} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/vehicles" element={<Vehicles />} />
+        {/* <Route path="/homestay/:id" element={<HomestayProfile />} /> */}
       </Routes>
-      <div>
-        <Footer/>
-      </div>
+
+      <Footer />
     </Router>
   );
 };
