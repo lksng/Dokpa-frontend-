@@ -13,10 +13,10 @@ import TopDestinationCarousel from "./pages/landing-page/components/Topdestinati
 import DestinationCarousel from "./pages/landing-page/components/DestinationCarousel.tsx";
 import MemoryWall from "./pages/landing-page/components/MemoryWall.tsx";
 // import UserReviews from "./pages/landing-page/components/UserReviews.tsx";
-// import HomestayProfile from "./pages/landing-page/components/HomestayProfile.tsx";
+import HomestayProfile from "./pages/landing-page/components/HomestayProfile.tsx";
 
 // Other Pages
-import ContactUs from "/Users/lobsangkesang/Documents/Mon-Voyage-Frontend/src/pages/ContactUs/ContactUs.tsx";
+import ContactUs from "./pages/ContactUs/ContactUs.tsx";
 import AboutPage from "./pages/About.tsx";
 import Vehicles from "./pages/Vehicles/Vehicles.tsx";
 
@@ -43,7 +43,7 @@ const App: React.FC = () => {
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/vehicles" element={<Vehicles />} />
-        {/* <Route path="/homestay/:id" element={<HomestayProfile />} /> */}
+        <Route path="/homestay/:id" element={<HomestayProfile />} />
       </Routes>
 
       <Footer />

@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 
 import { homestays, reviews } from "../../../data/homestays";
-import { Homestay, Review } from "../../../types/homestay";
+import type{ Homestay, Review } from "../../../types/homestay";
 
 const HomestayProfile: React.FC = () => {
   const { id } = useParams<{ id: string }>();
