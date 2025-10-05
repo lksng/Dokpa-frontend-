@@ -1,15 +1,17 @@
 import React from "react";
 import { Facebook, Instagram, Twitter, MapPin, Mail, Phone } from "lucide-react";
+import { Link } from "react-router-dom"; // ✅ Make sure you're using react-router
 
 const Footer: React.FC = () => {
   return (
     <footer className="bg-[#007a60] text-white py-10 px-6 md:px-20">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-8">
         {/* About */}
         <div>
-          <h3 className="text-lg font-bold mb-4">ExploreEase</h3>
+          <h3 className="text-lg font-bold mb-4">Dokpa.in</h3>
           <p className="text-sm text-gray-200">
-            Discover the beauty of Tawang and Arunachal Pradesh with curated travel experiences, local insights, and eco-friendly adventures.
+            Discover the beauty of Tawang and Arunachal Pradesh with curated travel
+            experiences, local insights, and eco-friendly adventures.
           </p>
         </div>
 
@@ -17,11 +19,38 @@ const Footer: React.FC = () => {
         <div>
           <h3 className="text-lg font-bold mb-4">Quick Links</h3>
           <ul className="space-y-2 text-gray-200 text-sm">
-            <li className="hover:text-white transition-colors cursor-pointer">Home</li>
-            <li className="hover:text-white transition-colors cursor-pointer">Top Destinations</li>
-            <li className="hover:text-white transition-colors cursor-pointer">Plan My Trip</li>
-            <li className="hover:text-white transition-colors cursor-pointer">Blog</li>
-            <li className="hover:text-white transition-colors cursor-pointer">Contact</li>
+            <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
+            <li><Link to="/destinations" className="hover:text-white transition-colors">Top Destinations</Link></li>
+            <li><Link to="/plan-my-trip" className="hover:text-white transition-colors">Plan My Trip</Link></li>
+            <li><Link to="/blog" className="hover:text-white transition-colors">Blog</Link></li>
+            <li><Link to="/contact" className="hover:text-white transition-colors">Contact</Link></li>
+          </ul>
+        </div>
+
+        {/* Policies */}
+        <div>
+          <h3 className="text-lg font-bold mb-4">Policies</h3>
+          <ul className="space-y-2 text-gray-200 text-sm">
+            <li>
+              <Link to="/privacy-policy" className="hover:text-white transition-colors">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link to="/terms-and-conditions" className="hover:text-white transition-colors">
+                Terms & Conditions
+              </Link>
+            </li>
+            <li>
+              <Link to="/refund-cancellation-policy" className="hover:text-white transition-colors">
+                Refund & Cancellation
+              </Link>
+            </li>
+            <li>
+              <Link to="/booking-delivery-policy" className="hover:text-white transition-colors">
+                Booking & Delivery
+              </Link>
+            </li>
           </ul>
         </div>
 

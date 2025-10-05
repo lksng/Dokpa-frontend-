@@ -35,7 +35,7 @@ const Homestay: React.FC = () => {
   const homestays: HomestayType[] = [
     {
       id: 1,
-      name: "Mountain View Homestay",
+      name: "Choedar Homestay",
       location: "tawang",
       image: "https://images.pexels.com/photos/1029599/pexels-photo-1029599.jpeg?auto=compress&cs=tinysrgb&w=800",
       rating: 4.8,
@@ -43,7 +43,7 @@ const Homestay: React.FC = () => {
       price: "₹2,500",
       description: "Experience authentic Monpa culture with stunning monastery views",
       amenities: ["Wifi", "Parking", "Meals", "Mountain View"],
-      host: "Tenzin Norbu",
+      host: "lobsang Choider",
       contact: {
         phone: "+91 98765 43210",
         email: "tenzin@mountainview.com"

@@ -60,6 +60,9 @@ const Navbar: React.FC = () => {
           <a href="/tours" className="hover:text-[#005246] transition-colors">
             Tours
           </a>
+           <a href="/acticities" className="hover:text-[#005246] transition-colors">
+           Activities 
+          </a>
           <a
             href="/vehicles"
             className="hover:text-[#005246] transition-colors"

@@ -1,8 +1,8 @@
-import React from "react";
+
 import { motion } from "framer-motion";
 import { Users, Mountain, Landmark, Tent, Home} from "lucide-react";
 
-export default function AboutPage(): JSX.Element {
+export default function AboutPage()  {
   // 🎨 Local theme constants (all in one file)
   const COLORS = {
     primary: "#005246",   // your green

@@ -28,6 +28,10 @@ const HomestayProfile: React.FC = () => {
       }
     }
   }, [id]);
+          // Scroll to top when component mounts
+useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
 
   const getAmenityIcon = (amenity: string) => {
     switch (amenity.toLowerCase()) {
