@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Users, Mountain, Landmark, Tent, Home} from "lucide-react";
 
-export default function AboutPage(): JSX.Element {
+export default function AboutPage(): React.ReactElement {
   // 🎨 Local theme constants (all in one file)
   const COLORS = {
     primary: "#005246",   // your green
@@ -178,6 +178,7 @@ export default function AboutPage(): JSX.Element {
               Travel not just to see, but to belong. Join our cultural journeys.
             </p>
           </div>
+          {/* plans do not even exist ??? */}
           <a
             href="/plans"
             className="rounded-lg px-6 py-3 font-medium text-slate-900 shadow-md hover:shadow-lg transition"

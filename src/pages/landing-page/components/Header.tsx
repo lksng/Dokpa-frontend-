@@ -3,7 +3,6 @@ import { Search, Users, Clock, Calendar, FileText } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Weather from "./Weather";
-import Navbar from "../../../components/navbar";
 
 interface Place {
   name: string;

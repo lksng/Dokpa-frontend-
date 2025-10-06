@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
 
   return (
     <nav
-      className={`w-full shadow-sm bg-white/40 sticky top-5 z-50 rounded-2xl transition-transform duration-300 ${
+      className={`w-full shadow-sm bg-white sticky top-5 z-50 rounded-2xl transition-transform duration-300 ${
         showNavbar ? "translate-y-0" : "-translate-y-full"
       }`}
     >
