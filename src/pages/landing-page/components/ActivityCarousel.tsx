@@ -1,80 +1,24 @@
-import React, { useRef, useState, useEffect } from "react";
+// src/components/ActivityCarousel.tsx
+import React, { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Heart } from "lucide-react";
-
-interface Activity {
-  id: number;
-  title: string;
-  image: string;
-  shortInfo: string;
-  details: string;
-}
-
-const activities: Activity[] = [
-  {
-    id: 1,
-    title: "Monastery Walk",
-    image: "src/assets/monsatry walk.jpg",
-    shortInfo: "Explore sacred monasteries.",
-    details:
-      "Experience the peaceful aura of ancient monasteries, interact with monks, and learn about Buddhist philosophy.",
-  },
-  {
-    id: 2,
-    title: "Mountain Trek",
-    image: "src/assets/twgtreak.jpg",
-    shortInfo: "Explore scenic trails.",
-    details:
-      "Journey through breathtaking landscapes, lush forests, and serene mountain paths, perfect for nature lovers.",
-  },
-  {
-    id: 3,
-    title: "Traditional Paper Making",
-    image: "src/assets/papermaking.png",
-    shortInfo: "Witness local traditions.",
-    details:
-      "Watch artisans craft handmade paper using ancient techniques passed down through generations.",
-  },
-  {
-    id: 4,
-    title: "Cultural Program",
-    image: "src/assets/snow lion dance.jpeg",
-    shortInfo: "Celebrate culture and tradition.",
-    details:
-      "Enjoy vibrant performances that bring local folklore and traditional costumes to life.",
-  },
-  {
-    id: 5,
-    title: "The Mago Trek",
-    image: "src/assets/the mago treak .jpg",
-    shortInfo: "Soar above the landscapes.",
-    details:
-      "Take in panoramic views from above during a peaceful sunrise hot air balloon ride.",
-  },
-  {
-    id: 6,
-    title: "Photowalk Through Village",
-    image: "src/assets/village walks.webp",
-    shortInfo: "Peaceful and Heart Soothing Villages.",
-    details:
-      "Navigate exciting Villages and Explore the Things You have never seen.",
-  },
-  {
-    id: 7,
-    title: "Local Market Tour",
-    image: "src/assets/localmart.jpg",
-    shortInfo: "Taste /Dress and shop Local.",
-    details:
-      "Explore bustling markets filled with handicrafts, spices, and delicious street local food.",
-  },
-];
+import { activities } from "../../../data/activities";
+import type { Activity } from "../../../types/Activity";
+import { useNavigate } from "react-router-dom";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Heart,
+  Calendar,
+  Users,
+  Clock,
+  MapPin,
+} from "lucide-react";
 
 const ActivityCarousel: React.FC = () => {
+  const navigate = useNavigate();
   const carouselRefDesktop = useRef<HTMLDivElement>(null);
   const carouselRefMobile = useRef<HTMLDivElement>(null);
   const [activeCardId, setActiveCardId] = useState<number | null>(null);
-
-
   const [wishlistModal, setWishlistModal] = useState(false);
   const [selectedActivity, setSelectedActivity] = useState<Activity | null>(
     null
@@ -83,23 +27,15 @@ const ActivityCarousel: React.FC = () => {
 
   const scrollLeft = (ref: React.RefObject<HTMLDivElement>) => {
     if (ref.current) {
-      const cardWidth =
-        ref.current.firstElementChild?.clientWidth || 0;
-      ref.current.scrollBy({
-        left: -cardWidth - 24,
-        behavior: "smooth",
-      });
+      const cardWidth = ref.current.firstElementChild?.clientWidth || 0;
+      ref.current.scrollBy({ left: -cardWidth - 24, behavior: "smooth" });
     }
   };
 
   const scrollRight = (ref: React.RefObject<HTMLDivElement>) => {
     if (ref.current) {
-      const cardWidth =
-        ref.current.firstElementChild?.clientWidth || 0;
-      ref.current.scrollBy({
-        left: cardWidth + 24,
-        behavior: "smooth",
-      });
+      const cardWidth = ref.current.firstElementChild?.clientWidth || 0;
+      ref.current.scrollBy({ left: cardWidth + 24, behavior: "smooth" });
     }
   };
 
@@ -119,14 +55,21 @@ const ActivityCarousel: React.FC = () => {
     setWishlistModal(false);
   };
 
+  const handleViewDetails = (activityId: number) => {
+    navigate(`/activity/${activityId}`);
+  };
+
+  const handleBookNow = (activityId: number) => {
+    navigate(`/booking/${activityId}`);
+  };
+
   return (
-  <section className="w-full max-w-7xl mx-auto py-3 lg:py-24">
- <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-0 sm:mb-10 text-center text-[#005246] mt-5 sm:mt-12 lg:mt-2">
-  Tourist Activities
-</h1>
+    <section className="w-full max-w-7xl mx-auto py-3 lg:py-24">
+      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-0 sm:mb-10 text-center text-[#005246] mt-5 sm:mt-12 lg:mt-2">
+        Tourist Activities
+      </h1>
 
-
-      {/* Desktop / Tablet Carousel */}
+      {/* --- Desktop / Tablet Carousel --- */}
       <div className="hidden sm:flex relative items-center">
         <button
           onClick={() => scrollLeft(carouselRefDesktop)}
@@ -149,25 +92,53 @@ const ActivityCarousel: React.FC = () => {
               transition={{ type: "spring", stiffness: 200 }}
             >
               <img
-                src={activity.image}
+                src={activity.images[0]}
                 alt={activity.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
-              <motion.div
-                className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center px-4"
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-              >
-                <h3 className="text-lg font-bold text-white mb-2">{activity.title}</h3>
-                <p className="text-sm text-white mb-2">{activity.shortInfo}</p>
-                <p className="text-xs text-white">{activity.details}</p>
-              </motion.div>
+
+              {/* Overlay Content */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 text-white bg-gradient-to-t from-black/80 via-black/30 to-transparent">
+                <h3 className="text-xl font-bold mb-1">{activity.title}</h3>
+                <p className="text-sm opacity-90 mb-2">{activity.shortInfo}</p>
+                <div className="flex items-center gap-3 text-xs opacity-80 mb-3">
+                  <Clock size={12} /> {activity.duration}
+                  <Users size={12} /> {activity.groupSize}
+                  <MapPin size={12} /> {activity.location}
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-lg font-bold">${activity.price}</span>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleViewDetails(activity.id);
+                      }}
+                      className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-md text-xs font-medium hover:bg-white/30 transition-colors"
+                    >
+                      Details
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleBookNow(activity.id);
+                      }}
+                      className="px-3 py-1 bg-[#005246] rounded-md text-xs font-medium hover:bg-[#004236] transition-colors"
+                    >
+                      Book Now
+                    </button>
+                  </div>
+                </div>
+              </div>
+
               <button
-                onClick={() => openWishlistModal(activity)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openWishlistModal(activity);
+                }}
                 className="absolute top-3 right-3 bg-white/80 p-2 rounded-full shadow hover:bg-white"
               >
-                <Heart className="text-[#005246]" size={20} />
+                <Heart className="text-[#005246]" size={18} />
               </button>
             </motion.div>
           ))}
@@ -181,57 +152,57 @@ const ActivityCarousel: React.FC = () => {
         </button>
       </div>
 
-     {/* Mobile Carousel */}
-<div className="flex sm:hidden relative items-center ">
-  <div
-    ref={carouselRefMobile}
-    className="flex overflow-x-auto px-4 py-8 flex-1 scrollbar-hide touch-pan-x snap-x snap-mandatory"
-  >
-    {activities.map((activity) => (
-      <motion.div
-        key={activity.id}
-        className="relative flex-shrink-0 w-[85%] mx-2 aspect-[3/4] rounded-xl overflow-hidden cursor-pointer group bg-gray-200 snap-center"
-        whileTap={{ scale: 0.97 }}
-        transition={{ type: "spring", stiffness: 200 }}
-        onClick={() =>
-          setActiveCardId((prev) => (prev === activity.id ? null : activity.id))
-        }
-      >
-        <img
-          src={activity.image}
-          alt={activity.title}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-
-        {/* Description overlay */}
-        <motion.div
-          className="absolute inset-0 bg-black/50 flex flex-col items-center justify-center text-center px-3"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: activeCardId === activity.id ? 1 : 0 }}
-          transition={{ duration: 0.3 }}
+      {/* --- Mobile Carousel --- */}
+      <div className="flex sm:hidden relative items-center">
+        <div
+          ref={carouselRefMobile}
+          className="flex overflow-x-auto px-4 py-8 flex-1 scrollbar-hide touch-pan-x snap-x snap-mandatory"
         >
-          <h3 className="text-base font-bold text-white mb-1">{activity.title}</h3>
-          <p className="text-sm text-white mb-1">{activity.shortInfo}</p>
-          <p className="text-xs text-white">{activity.details}</p>
-        </motion.div>
+          {activities.map((activity) => (
+            <motion.div
+              key={activity.id}
+              className="relative flex-shrink-0 w-[85%] mx-2 aspect-[3/4] rounded-xl overflow-hidden cursor-pointer group bg-gray-200 snap-center"
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 200 }}
+              onClick={() =>
+                setActiveCardId((prev) =>
+                  prev === activity.id ? null : activity.id
+                )
+              }
+            >
+              <img
+                src={activity.images[0]}
+                alt={activity.title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <motion.div
+                className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center px-3"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: activeCardId === activity.id ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h3 className="text-base font-bold text-white mb-1">
+                  {activity.title}
+                </h3>
+                <p className="text-sm text-white mb-1">{activity.shortInfo}</p>
+                <p className="text-xs text-white">{activity.details}</p>
+              </motion.div>
 
-        {/* Wishlist button (always visible) */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation(); // prevent triggering card click
-            openWishlistModal(activity);
-          }}
-          className="absolute top-2 right-2 bg-white/80 p-2 rounded-full shadow hover:bg-white"
-        >
-          <Heart className="text-[#005246]" size={18} />
-        </button>
-      </motion.div>
-    ))}
-  </div>
-</div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openWishlistModal(activity);
+                }}
+                className="absolute top-2 right-2 bg-white/80 p-2 rounded-full shadow hover:bg-white"
+              >
+                <Heart className="text-[#005246]" size={18} />
+              </button>
+            </motion.div>
+          ))}
+        </div>
+      </div>
 
-
-      {/* Wishlist Modal */}
+      {/* --- Wishlist Modal --- */}
       <AnimatePresence>
         {wishlistModal && (
           <motion.div
