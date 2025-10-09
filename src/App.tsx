@@ -13,6 +13,7 @@ import DestinationCarousel from "./pages/landing-page/components/DestinationCaro
 import MemoryWall from "./pages/landing-page/components/MemoryWall.tsx";
 // import UserReviews from "./pages/landing-page/components/UserReviews.tsx";
 import HomestayProfile from "./pages/landing-page/components/HomestayProfile.tsx";
+import ActivityDetails from "./pages/landing-page/components/ActivityDetails.tsx";
 
 // Other Pages
 import ContactUs from "./pages/ContactUs/ContactUs.tsx";
@@ -55,6 +56,7 @@ const App: React.FC = () => {
           {/* <Route path="/tours" element={<Tours />} /> */}
         <Route path="/vehicles" element={<Vehicles />} />
         <Route path="/homestay/:id" element={<HomestayProfile />} />
+        <Route path="/activity/:id" element={<ActivityDetails />} />
 
         {/* Policy Pages */}
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />

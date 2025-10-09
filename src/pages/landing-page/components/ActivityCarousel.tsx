@@ -5,120 +5,14 @@ import {
   ChevronLeft,
   ChevronRight,
   Heart,
-  Calendar,
   Users,
   Clock,
   MapPin,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { activities } from "../../../data/activities";
+import type { Activity } from "../../../types/Activity";
 
-interface Activity {
-  id: number;
-  title: string;
-  image: string;
-  shortInfo: string;
-  details: string;
-  duration?: string;
-  groupSize?: string;
-  location?: string;
-  price?: number;
-  bestTime?: string;
-  difficulty?: string;
-}
-
-const activities: Activity[] = [
-  {
-    id: 1,
-    title: "Monastery Walk",
-    image: "src/assets/monsatry walk.jpg",
-    shortInfo: "Explore sacred monasteries.",
-    details:
-      "Experience the peaceful aura of ancient monasteries, interact with monks, and learn about Buddhist philosophy.",
-    duration: "Half Day",
-    groupSize: "5-10 people",
-    location: "Tawang",
-    price: 30,
-    bestTime: "March - June",
-  },
-  {
-    id: 2,
-    title: "Mountain Trek",
-    image: "src/assets/twgtreak.jpg",
-    shortInfo: "Explore scenic trails.",
-    details:
-      "Journey through breathtaking landscapes, lush forests, and serene mountain paths, perfect for nature lovers.",
-    duration: "2 Days",
-    groupSize: "Up to 6 people",
-    location: "Dirang Valley",
-    price: 80,
-    bestTime: "October - March",
-  },
-  {
-    id: 3,
-    title: "Traditional Paper Making",
-    image: "src/assets/papermaking.png",
-    shortInfo: "Witness local traditions.",
-    details:
-      "Watch artisans craft handmade paper using ancient techniques passed down through generations.",
-    duration: "2 hours",
-    groupSize: "Up to 10 people",
-    location: "Bomdila",
-    price: 20,
-    bestTime: "All year",
-  },
-  {
-    id: 4,
-    title: "Cultural Program",
-    image: "src/assets/snow lion dance.jpeg",
-    shortInfo: "Celebrate culture and tradition.",
-    details:
-      "Enjoy vibrant performances that bring local folklore and traditional costumes to life.",
-    duration: "Evening",
-    groupSize: "Unlimited",
-    location: "Tawang",
-    price: 40,
-    bestTime: "Festive seasons",
-  },
-  {
-    id: 5,
-    title: "The Mago Trek",
-    image: "src/assets/the mago treak .jpg",
-    shortInfo: "Soar above the landscapes.",
-    details:
-      "Take in panoramic views from above during a peaceful sunrise hot air balloon ride.",
-    duration: "3 Days",
-    groupSize: "Up to 5 people",
-    location: "Mago",
-    price: 120,
-    bestTime: "April - June",
-  },
-  {
-    id: 6,
-    title: "Photowalk Through Village",
-    image: "src/assets/village walks.webp",
-    shortInfo: "Peaceful and Heart Soothing Villages.",
-    details:
-      "Navigate exciting Villages and Explore the Things You have never seen.",
-    duration: "1 Day",
-    groupSize: "4-6 people",
-    location: "Zemithang",
-    price: 25,
-    bestTime: "October - February",
-  },
-  {
-    id: 7,
-    title: "Local Market Tour",
-    image: "src/assets/localmart.jpg",
-    shortInfo: "Taste, dress, and shop local.",
-    details:
-      "Explore bustling markets filled with handicrafts, spices, and delicious street local food.",
-    duration: "2 Hours",
-    groupSize: "Any",
-    location: "Tawang",
-    price: 15,
-    bestTime: "All year",
-  },
-];
 
 const ActivityCarousel: React.FC = () => {
   const navigate = useNavigate();
@@ -131,14 +25,14 @@ const ActivityCarousel: React.FC = () => {
   );
   const [wishlistName, setWishlistName] = useState("");
 
-  const scrollLeft = (ref: React.RefObject<HTMLDivElement>) => {
+  const scrollLeft = (ref: React.RefObject<HTMLDivElement | null>) => {
     if (ref.current) {
       const cardWidth = ref.current.firstElementChild?.clientWidth || 0;
       ref.current.scrollBy({ left: -cardWidth - 24, behavior: "smooth" });
     }
   };
 
-  const scrollRight = (ref: React.RefObject<HTMLDivElement>) => {
+  const scrollRight = (ref: React.RefObject<HTMLDivElement | null>) => {
     if (ref.current) {
       const cardWidth = ref.current.firstElementChild?.clientWidth || 0;
       ref.current.scrollBy({ left: cardWidth + 24, behavior: "smooth" });
@@ -198,7 +92,7 @@ const ActivityCarousel: React.FC = () => {
               transition={{ type: "spring", stiffness: 200 }}
             >
               <img
-                src={activity.image}
+                src={activity.images[0]}
                 alt={activity.title}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
@@ -277,7 +171,7 @@ const ActivityCarousel: React.FC = () => {
               }
             >
               <img
-                src={activity.image}
+                src={activity.images[0]}
                 alt={activity.title}
                 className="absolute inset-0 w-full h-full object-cover"
               />
