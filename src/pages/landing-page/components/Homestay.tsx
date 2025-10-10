@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Star, Wifi, Car, Coffee, Mountain, Users, Phone, Mail, Heart } from 'lucide-react';
+import { useFavoritesStore, useFilterStore } from '../../../store';
 
 interface HomestayType {
   id: number;
@@ -22,8 +23,10 @@ interface HomestayType {
 
 const Homestay: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedLocation, setSelectedLocation] = useState<string>('all');
-  const [favorites, setFavorites] = useState<number[]>([]);
+  
+  // Use stores
+  const { toggleFavorite, isFavorite } = useFavoritesStore();
+  const { homestayLocation, setHomestayLocation } = useFilterStore();
 
   const locations = [
     { id: 'all', name: 'All Locations', count: 15 },
@@ -147,17 +150,9 @@ const Homestay: React.FC = () => {
     }
   };
 
-  const filteredHomestays = selectedLocation === 'all' 
+  const filteredHomestays = homestayLocation === 'all' 
     ? homestays 
-    : homestays.filter(homestay => homestay.location === selectedLocation);
-
-  const toggleFavorite = (id: number) => {
-    setFavorites(prev => 
-      prev.includes(id) 
-        ? prev.filter(fav => fav !== id)
-        : [...prev, id]
-    );
-  };
+    : homestays.filter(homestay => homestay.location === homestayLocation);
 
   const handleHomestayClick = (homestayId: number) => {
     navigate(`/homestay/${homestayId}`);
@@ -181,9 +176,9 @@ const Homestay: React.FC = () => {
             {locations.map((location) => (
               <button
                 key={location.id}
-                onClick={() => setSelectedLocation(location.id)}
+                onClick={() => setHomestayLocation(location.id)}
                 className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition-all duration-300 ${
-                  selectedLocation === location.id
+                  homestayLocation === location.id
                     ? 'bg-[#005246] text-white shadow-lg scale-105'
                     : 'bg-white text-gray-700 hover:bg-gray-100 shadow-md hover:shadow-lg'
                 }`}
@@ -222,13 +217,13 @@ const Homestay: React.FC = () => {
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    toggleFavorite(homestay.id);
+                    toggleFavorite('homestays', homestay.id);
                   }}
                   className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 hover:bg-white transition-all duration-300"
                 >
                   <Heart 
                     className={`w-5 h-5 ${
-                      favorites.includes(homestay.id) 
+                      isFavorite('homestays', homestay.id)
                         ? 'fill-red-500 text-red-500' 
                         : 'text-gray-600'
                     }`} 

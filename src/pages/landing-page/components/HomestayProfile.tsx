@@ -8,6 +8,7 @@ import {
 
 import { homestays, reviews } from "../../../data/homestays";
 import type{ Homestay, Review } from "../../../types/homestay";
+import { useFavoritesStore } from "../../../store";
 
 const HomestayProfile: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,9 +16,11 @@ const HomestayProfile: React.FC = () => {
   const [homestay, setHomestay] = useState<Homestay | null>(null);
   const [homestayReviews, setHomestayReviews] = useState<Review[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isFavorite, setIsFavorite] = useState(false);
   const [showAllAmenities, setShowAllAmenities] = useState(false);
   const [showAllReviews, setShowAllReviews] = useState(false);
+  
+  // Use favorites store
+  const { toggleFavorite, isFavorite } = useFavoritesStore();
 
   useEffect(() => {
     if (id) {
@@ -94,10 +97,10 @@ useEffect(() => {
                 <span className="hidden sm:inline">Share</span>
               </button>
               <button
-                onClick={() => setIsFavorite(!isFavorite)}
+                onClick={() => homestay && toggleFavorite('homestays', homestay.id)}
                 className="flex items-center gap-2 text-gray-600 hover:text-red-500 transition-colors"
               >
-                <Heart className={`w-5 h-5 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
+                <Heart className={`w-5 h-5 ${homestay && isFavorite('homestays', homestay.id) ? 'fill-red-500 text-red-500' : ''}`} />
                 <span className="hidden sm:inline">Save</span>
               </button>
             </div>

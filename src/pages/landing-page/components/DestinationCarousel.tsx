@@ -193,7 +193,7 @@ const DestinationsCarousel: React.FC = () => {
         </div>
 
         {/* Thumbnail Navigation */}
-        <div className="mt-6 sm:mt-8 flex gap-3 sm:gap-4 overflow-x-auto pb-2 scrollbar-hide">
+        <div className="mt-6 sm:mt-8 flex gap-3 sm:gap-4 overflow-x-auto pb-2 scrollbar-hide p-2">
           {destinations.map((destination, index) => (
             <button
               key={destination.id}

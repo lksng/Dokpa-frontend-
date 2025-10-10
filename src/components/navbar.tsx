@@ -1,26 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Logo from "../assets/dokpadarkenlogo.png";
+import { useUIStore } from "../store";
 
 const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [showNavbar, setShowNavbar] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const { 
+    isMobileMenuOpen, 
+    showNavbar, 
+    lastScrollY, 
+    toggleMobileMenu, 
+    setMobileMenuOpen, 
+    setNavbarVisibility, 
+    setLastScrollY 
+  } = useUIStore();
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
         // scrolling down → hide
-        setShowNavbar(false);
+        setNavbarVisibility(false);
       } else {
         // scrolling up → show
-        setShowNavbar(true);
+        setNavbarVisibility(true);
       }
       setLastScrollY(window.scrollY);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, [lastScrollY, setNavbarVisibility, setLastScrollY]);
 
   return (
     <nav
@@ -87,10 +94,10 @@ const Navbar: React.FC = () => {
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
           <button
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={toggleMobileMenu}
             className="text-gray-700 focus:outline-none"
           >
-            {isOpen ? (
+            {isMobileMenuOpen ? (
               <svg
                 className="w-7 h-7"
                 fill="none"
@@ -124,7 +131,7 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Mobile Dropdown Menu */}
-      {isOpen && (
+      {isMobileMenuOpen && (
         <div className="md:hidden bg-white shadow-lg border-t border-gray-200">
           <div className="flex flex-col px-6 py-4 space-y-3 text-base font-medium text-gray-800">
             <a href="/" className="hover:text-[#005246]">

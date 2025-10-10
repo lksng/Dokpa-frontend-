@@ -12,6 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { activities } from "../../../data/activities";
 import type { Activity } from "../../../types/Activity";
+import { useFavoritesStore } from "../../../store";
 
 
 const ActivityCarousel: React.FC = () => {
@@ -24,6 +25,9 @@ const ActivityCarousel: React.FC = () => {
     null
   );
   const [wishlistName, setWishlistName] = useState("");
+  
+  // Use favorites store
+  const { toggleFavorite, isFavorite } = useFavoritesStore();
 
   const scrollLeft = (ref: React.RefObject<HTMLDivElement | null>) => {
     if (ref.current) {
@@ -39,10 +43,6 @@ const ActivityCarousel: React.FC = () => {
     }
   };
 
-  const openWishlistModal = (activity: Activity) => {
-    setSelectedActivity(activity);
-    setWishlistModal(true);
-  };
 
   const handleSaveWishlist = () => {
     console.log(
@@ -134,11 +134,14 @@ const ActivityCarousel: React.FC = () => {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  openWishlistModal(activity);
+                  toggleFavorite('activities', activity.id);
                 }}
                 className="absolute top-3 right-3 bg-white/80 p-2 rounded-full shadow hover:bg-white"
               >
-                <Heart className="text-[#005246]" size={18} />
+                <Heart 
+                  className={`text-[#005246] ${isFavorite('activities', activity.id) ? 'fill-red-500 text-red-500' : ''}`} 
+                  size={18} 
+                />
               </button>
             </motion.div>
           ))}
@@ -191,11 +194,14 @@ const ActivityCarousel: React.FC = () => {
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  openWishlistModal(activity);
+                  toggleFavorite('activities', activity.id);
                 }}
                 className="absolute top-2 right-2 bg-white/80 p-2 rounded-full shadow hover:bg-white"
               >
-                <Heart className="text-[#005246]" size={18} />
+                <Heart 
+                  className={`text-[#005246] ${isFavorite('activities', activity.id) ? 'fill-red-500 text-red-500' : ''}`} 
+                  size={18} 
+                />
               </button>
             </motion.div>
           ))}

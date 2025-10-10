@@ -16,6 +16,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { activities } from '../../../data/activities';
+import { useFavoritesStore } from '../../../store';
 
 const ActivityDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,6 +25,9 @@ const ActivityDetails: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'overview' | 'schedule' | 'included'>('overview');
 
   const activity = activities.find(a => a.id === parseInt(id || '0'));
+  
+  // Use favorites store
+  const { toggleFavorite, isFavorite } = useFavoritesStore();
 
   if (!activity) {
     return (
@@ -76,8 +80,14 @@ const ActivityDetails: React.FC = () => {
           </button>
           
           <div className="flex items-center gap-4">
-            <button className="p-2 rounded-full hover:bg-gray-100">
-              <Heart size={20} className="text-gray-600" />
+            <button 
+              onClick={() => activity && toggleFavorite('activities', activity.id)}
+              className="p-2 rounded-full hover:bg-gray-100"
+            >
+              <Heart 
+                size={20} 
+                className={`${activity && isFavorite('activities', activity.id) ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} 
+              />
             </button>
             <button className="p-2 rounded-full hover:bg-gray-100">
               <Share2 size={20} className="text-gray-600" />
