@@ -36,7 +36,10 @@ const Navbar: React.FC = () => {
       }`}
     >
       {/* Container with fixed max width */}
-      <div className="w-full max-w-[1280px]  xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 py-3 flex justify-between items-center">
+  <div className="w-full max-w-7xl lg:max-w-12xl xl:max-w-10xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+
+
+
         {/* Logo + Brand */}
         <div className="flex items-center gap-4">
           {/* Logo wrapper with scale */}

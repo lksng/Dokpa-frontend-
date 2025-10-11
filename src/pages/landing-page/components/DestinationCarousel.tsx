@@ -22,7 +22,7 @@ const DestinationsCarousel: React.FC = () => {
       id: 1,
       name: "Tawang Monastery",
       location: "Tawang, Arunachal Pradesh",
-      image: "src/assets/twgmonastery.jpg",
+      image: "/src/assets/twgmonastery.jpg",
       rating: 4.8,
       duration: "3-4 days",
       price: "₹8,000",
@@ -44,7 +44,7 @@ const DestinationsCarousel: React.FC = () => {
       id: 3,
       name: "Bumla Pass",
       location: "Tawang, Arunachal Pradesh",
-      image: "src/assets/bomlaimg.jpg",
+      image: "/src/assets/bomlaimg.jpg",
       rating: 4.7,
       duration: "1-2 days",
       price: "₹4,500",
@@ -55,7 +55,7 @@ const DestinationsCarousel: React.FC = () => {
       id: 4,
       name: "Madhuri Lake",
       location: "Tawang, Arunachal Pradesh",
-      image: "src/assets/madurilk.jpg",
+      image: "/src/assets/madurilk.jpg",
       rating: 4.6,
       duration: "2-3 days",
       price: "₹7,200",
@@ -66,7 +66,7 @@ const DestinationsCarousel: React.FC = () => {
       id: 5,
       name: "Dirang Valley",
       location: "West Kameng, Arunachal Pradesh",
-      image: "src/assets/mandala.jpg",
+      image: "/src/assets/mandala.jpg",
       rating: 4.5,
       duration: "3-4 days",
       price: "₹9,000",
@@ -77,7 +77,7 @@ const DestinationsCarousel: React.FC = () => {
       id: 6,
       name: "Jung Waterfall",
       location: "Tawang, Arunachal Pradesh",
-      image: "src/assets/jungwaterfall1.jpg",
+      image: "/src/assets/jungwaterfall1.jpg",
       rating: 4.5,
       duration: "1 day",
       price: "₹1,500",
@@ -88,7 +88,7 @@ const DestinationsCarousel: React.FC = () => {
       id: 7,
       name: "Mago",
       location: "Tawang, Arunachal Pradesh",
-      image: "src/assets/mago.jpg",
+      image: "/src/assets/mago.jpg",
       rating: 4.5,
       duration: "1 day",
       price: "₹1,500",
@@ -97,7 +97,6 @@ const DestinationsCarousel: React.FC = () => {
     }
   ];
 
-  // Auto-play functionality
   useEffect(() => {
     if (!isAutoPlaying) return;
 
@@ -127,9 +126,10 @@ const DestinationsCarousel: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-gradient-to-br from-gray-50 to-white py-12 sm:py-16 lg:py-20">
-      <div className="w-full max-w-[1280px] xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
-        
+    <div className="w-full max-w-7xl lg:max-w-12xl xl:max-w-10xl mx-auto px-4">
+      {/* Added px-0 for mobile full width */}
+      <div className="w-full max-w-[1600px] mx-auto px-0 sm:px-2 md:px-4 lg:px-8">
+
         {/* Section Header */}
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
@@ -140,10 +140,10 @@ const DestinationsCarousel: React.FC = () => {
           </p>
         </div>
 
-        {/* Carousel Container */}
+        {/* Carousel */}
         <div className="relative">
-          <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl">
-            <div 
+          <div className="overflow-hidden rounded-2xl sm:rounded-3xl shadow-2xl">
+            <div
               className="flex transition-transform duration-700 ease-in-out"
               style={{ transform: `translateX(-${currentIndex * 100}%)` }}
             >
@@ -153,11 +153,10 @@ const DestinationsCarousel: React.FC = () => {
             </div>
           </div>
 
-          {/* Navigation Arrows (minimal style) */}
+          {/* Arrows */}
           <button
             onClick={goToPrevious}
             className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 text-white hover:text-[#00b894] transition-transform duration-300 hover:scale-125 z-10"
-            aria-label="Previous destination"
           >
             <ChevronLeft className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={2.5} />
           </button>
@@ -165,12 +164,11 @@ const DestinationsCarousel: React.FC = () => {
           <button
             onClick={goToNext}
             className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-white hover:text-[#00b894] transition-transform duration-300 hover:scale-125 z-10"
-            aria-label="Next destination"
           >
             <ChevronRight className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={2.5} />
           </button>
 
-          {/* Dots Indicator */}
+          {/* Dots */}
           <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 flex gap-2">
             {destinations.map((_, index) => (
               <button
@@ -181,24 +179,18 @@ const DestinationsCarousel: React.FC = () => {
                     ? 'bg-white scale-125'
                     : 'bg-white/50 hover:bg-white/75'
                 }`}
-                aria-label={`Go to slide ${index + 1}`}
               />
             ))}
           </div>
-
-          {/* Auto-play Indicator */}
-          <div className="absolute top-4 sm:top-6 right-4 sm:right-6">
-            <div className={`w-2 h-2 rounded-full ${isAutoPlaying ? 'bg-green-400' : 'bg-gray-400'} animate-pulse`} />
-          </div>
         </div>
 
-        {/* Thumbnail Navigation */}
-        <div className="mt-6 sm:mt-8 flex gap-3 sm:gap-4 overflow-x-auto pb-2 scrollbar-hide p-2">
+        {/* Thumbnails */}
+        <div className="mt-8 flex gap-3 sm:gap-4 overflow-x-auto pb-2 scrollbar-hide px-2 sm:px-4">
           {destinations.map((destination, index) => (
             <button
               key={destination.id}
               onClick={() => goToSlide(index)}
-              className={`flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden transition-all duration-300 ${
+              className={`flex-shrink-0 relative rounded-xl overflow-hidden transition-all duration-300 ${
                 index === currentIndex
                   ? 'ring-4 ring-[#005246] scale-105'
                   : 'hover:scale-105 opacity-70 hover:opacity-100'
@@ -223,7 +215,6 @@ const DestinationsCarousel: React.FC = () => {
   );
 };
 
-// Separate Slide component to handle description toggle
 const Slide: React.FC<{ destination: Destination }> = ({ destination }) => {
   const [showDescription, setShowDescription] = useState(false);
 
@@ -238,8 +229,7 @@ const Slide: React.FC<{ destination: Destination }> = ({ destination }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
       </div>
 
-      {/* Content Overlay */}
-      <div 
+      <div
         className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-12 text-white"
         onClick={() => {
           if (window.innerWidth < 640) setShowDescription(!showDescription);
@@ -260,12 +250,12 @@ const Slide: React.FC<{ destination: Destination }> = ({ destination }) => {
           </p>
 
           <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-            <div className="flex items-center gap-1 bg-white/20 backdrop-blur-sm rounded-full px-2 sm:px-3 py-1 text-xs sm:text-sm">
+            <div className="flex items-center gap-1 bg-white/20 rounded-full px-2 sm:px-3 py-1 text-xs sm:text-sm">
               <Star className="w-3 h-3 sm:w-4 sm:h-4 fill-yellow-400 text-yellow-400" />
               <span className="font-semibold">{destination.rating}</span>
             </div>
 
-            <div className="flex items-center gap-1 bg-white/20 backdrop-blur-sm rounded-full px-2 sm:px-3 py-1 text-xs sm:text-sm">
+            <div className="flex items-center gap-1 bg-white/20 rounded-full px-2 sm:px-3 py-1 text-xs sm:text-sm">
               <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
               <span>{destination.duration}</span>
             </div>
@@ -279,7 +269,7 @@ const Slide: React.FC<{ destination: Destination }> = ({ destination }) => {
             {destination.highlights.map((highlight, index) => (
               <span
                 key={index}
-                className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-2 py-0.5 text-xs sm:text-sm"
+                className="bg-white/10 border border-white/20 rounded-full px-2 py-0.5 text-xs sm:text-sm"
               >
                 {highlight}
               </span>

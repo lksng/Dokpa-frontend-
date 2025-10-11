@@ -67,7 +67,7 @@ export default function AboutPage()  {
             className="w-full rounded-2xl overflow-hidden shadow-2xl border border-slate-100"
           >
             <img
-              src="https://images.unsplash.com/photo-1590099543488-3b8b5a651c01?w=1600&q=80"
+              src="src/assets/dance.jpg .jpg"
               alt="Local cultural festival"
               className="w-full h-80 object-cover"
             />

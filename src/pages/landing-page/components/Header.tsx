@@ -89,7 +89,8 @@ const Header: React.FC = () => {
       {/* <Navbar /> */}
 
       {/* Hero Content with matching navbar width constraints */}
-      <div className="w-full max-w-[1280px] xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 py-2 sm:py-8 lg:py-10">
+    <div className="w-full max-w-7xl lg:max-w-12xl xl:max-w-10xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-8 lg:py-10">
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8 lg:gap-12 items-start">
           {/* Left Section (Heading + Filters + Weather + Permit) */}
           <div className="lg:col-span-5 space-y-4 sm:space-y-6">
