@@ -145,17 +145,6 @@ const Vehicles: React.FC = () => {
   return (
     <div className="w-full max-w-[1280px] xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 py-8">
       
-      {/* Home Button */}
-      <div className="mb-6">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-[#005246] text-white rounded-full shadow-md hover:bg-[#004536] transition-colors"
-        >
-          <Home className="w-5 h-5" />
-          <span className="font-medium">Home</span>
-        </Link>
-      </div>
-
       {/* Header */}
       <div className="text-center mb-12">
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">

@@ -19,7 +19,8 @@ import ActivityDetails from "./pages/landing-page/components/ActivityDetails.tsx
 import ContactUs from "./pages/ContactUs/ContactUs.tsx";
 import AboutPage from "./pages/About.tsx";
 import Vehicles from "./pages/Vehicles/Vehicles.tsx";
-// import Tours from './pages/tours/Tours.tsx';
+import Tours from './pages/tours/Tours.tsx';
+import HomestayPage from "./pages/HomestayPage/HomestayPage.tsx";
 // import TourDetails from './pages/tours/TourDetails.tsx';
 
 
@@ -53,10 +54,12 @@ const App: React.FC = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/contact" element={<ContactUs />} />
         <Route path="/about" element={<AboutPage />} />
-          {/* <Route path="/tours" element={<Tours />} /> */}
+        <Route path="/tours/:id" element={<Tours />} />
         <Route path="/vehicles" element={<Vehicles />} />
         <Route path="/homestay/:id" element={<HomestayProfile />} />
         <Route path="/activity/:id" element={<ActivityDetails />} />
+        <Route path="/homestays" element={<HomestayPage />} /> 
+       
 
         {/* Policy Pages */}
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />

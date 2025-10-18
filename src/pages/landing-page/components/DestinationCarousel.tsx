@@ -126,7 +126,7 @@ const DestinationsCarousel: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-7xl lg:max-w-12xl xl:max-w-10xl mx-auto px-4">
+    <div className="w-full max-w-7xl lg:max-w-12xl xl:max-w-10xl mx-auto px-0">
       {/* Added px-0 for mobile full width */}
       <div className="w-full max-w-[1600px] mx-auto px-0 sm:px-2 md:px-4 lg:px-8">
 

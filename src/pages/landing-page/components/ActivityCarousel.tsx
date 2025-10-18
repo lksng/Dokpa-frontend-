@@ -124,7 +124,7 @@ const ActivityCarousel: React.FC = () => {
   };
 
   return (
- <section className="w-full sm:max-w-7xl sm:mx-auto px-0 sm:px-6 lg:px-12 py-3 lg:py-24">
+ <section className="w-full sm:max-w-7xl sm:mx-auto px-0 sm:px-5 lg:px-8 py-3 lg:py-10">
       <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-0 sm:mb-10 text-center text-[#005246] mt-5 sm:mt-12 lg:mt-2">
         Tourist Activities
       </h1>

@@ -1,30 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Logo from "../assets/dokpadarkenlogo.png";
 import { useUIStore } from "../store";
+import { Menu, X } from "lucide-react";
 
 const Navbar: React.FC = () => {
-  const { 
-    isMobileMenuOpen, 
-    showNavbar, 
-    lastScrollY, 
-    toggleMobileMenu, 
-    setMobileMenuOpen, 
-    setNavbarVisibility, 
-    setLastScrollY 
-  } = useUIStore();
+  const { showNavbar, lastScrollY, setNavbarVisibility, setLastScrollY } = useUIStore();
+  const [isMenuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > lastScrollY) {
-        // scrolling down → hide
-        setNavbarVisibility(false);
-      } else {
-        // scrolling up → show
-        setNavbarVisibility(true);
-      }
+      if (window.scrollY > lastScrollY) setNavbarVisibility(false);
+      else setNavbarVisibility(true);
       setLastScrollY(window.scrollY);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY, setNavbarVisibility, setLastScrollY]);
@@ -35,126 +24,93 @@ const Navbar: React.FC = () => {
         showNavbar ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      {/* Container with fixed max width */}
-  <div className="w-full max-w-7xl lg:max-w-12xl xl:max-w-10xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
 
-
-
-        {/* Logo + Brand */}
+        {/* Logo */}
         <div className="flex items-center gap-4">
-          {/* Logo wrapper with scale */}
-          <div className="flex items-center justify-center h-14 sm:h-16 md:h-20 lg:h-24">
+          <Link to="/" className="flex items-center gap-4">
             <img
               src={Logo}
               alt="Logo"
-              className="h-full w-auto object-contain scale-125 sm:scale-125 md:scale-150"
+              className="h-14 sm:h-16 md:h-20 w-auto object-contain scale-125"
             />
-          </div>
-
-          {/* Brand Name */}
-          <div className="flex flex-col leading-tight">
-            <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-black tracking-wide">
-              Dokpa.in
-            </span>
-            <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-medium text-gray-700">
-              འབྲོག་པ་
-            </span>
-          </div>
+            <div className="flex flex-col leading-tight">
+              <span className="text-xl sm:text-2xl md:text-3xl font-extrabold text-black tracking-wide">
+                Drokpa.in
+              </span>
+              <span className="text-base sm:text-lg font-medium text-gray-700">
+                འབྲོག་པ་
+              </span>
+            </div>
+          </Link>
         </div>
 
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex gap-8 lg:gap-12 font-semibold text-base lg:text-xl text-black">
-          <a href="/" className="hover:text-[#005246] transition-colors">
+        {/* Desktop Nav Links */}
+        <div className="hidden lg:flex items-center gap-10">
+          <Link to="/" className="font-semibold text-base lg:text-lg hover:text-[#005246] transition-colors">
             Home
-          </a>
-          <a href="/tours" className="hover:text-[#005246] transition-colors">
+          </Link>
+          <Link to="/tours" className="font-semibold text-base lg:text-lg hover:text-[#005246] transition-colors">
             Tours
-          </a>
-           <a href="/acticities" className="hover:text-[#005246] transition-colors">
-           Activities 
-          </a>
-          <a
-            href="/vehicles"
-            className="hover:text-[#005246] transition-colors"
-          >
-            Vehicles
-          </a>
-          <a href="/about" className="hover:text-[#005246] transition-colors">
+          </Link>
+          <Link to="/about" className="font-semibold text-base lg:text-lg hover:text-[#005246] transition-colors">
             About
-          </a>
-          <a href="/contact" className="hover:text-[#005246] transition-colors">
+          </Link>
+          <Link to="/contact" className="font-semibold text-base lg:text-lg hover:text-[#005246] transition-colors">
             Contact
-          </a>
+          </Link>
         </div>
 
-        {/* Login Button (hidden on mobile, shown in menu instead) */}
-        <div className="hidden md:flex items-center">
-          <button className="bg-[#005246] text-white px-4 lg:px-6 py-2 lg:py-3 rounded-full hover:bg-[#00735f] transition-colors text-sm sm:text-base lg:text-lg font-medium">
+        {/* Right: Login + Hamburger */}
+        <div className="flex items-center gap-4">
+          {/* Desktop Login */}
+          <button className="hidden lg:flex bg-gradient-to-r from-[#005246] to-[#007f67] text-white px-5 py-2.5 rounded-full font-semibold shadow-md hover:scale-105 hover:shadow-lg transition-all">
             Login
           </button>
-        </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
+          {/* Hamburger Menu (desktop + mobile) */}
           <button
-            onClick={toggleMobileMenu}
-            className="text-gray-700 focus:outline-none"
+            onClick={() => setMenuOpen(!isMenuOpen)}
+            className="flex items-center justify-center p-2 rounded-md text-gray-800 hover:bg-gray-200 transition"
           >
-            {isMobileMenuOpen ? (
-              <svg
-                className="w-7 h-7"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-7 h-7"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
+            {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-white shadow-lg border-t border-gray-200">
+      {/* Dropdown Menu */}
+      {isMenuOpen && (
+        <div className="bg-white shadow-lg border-t border-gray-200 lg:absolute lg:right-5 lg:top-full lg:w-56 rounded-xl lg:shadow-xl">
           <div className="flex flex-col px-6 py-4 space-y-3 text-base font-medium text-gray-800">
-            <a href="/" className="hover:text-[#005246]">
-              Home
-            </a>
-            <a href="/tours" className="hover:text-[#005246]">
-              Tours
-            </a>
-            <a href="/vehicles" className="hover:text-[#005246]">
+            {/* All links in dropdown */}
+            <Link to="/activities" className="hover:text-[#005246]" onClick={() => setMenuOpen(false)}>
+              Activities
+            </Link>
+            <Link to="/vehicles" className="hover:text-[#005246]" onClick={() => setMenuOpen(false)}>
               Vehicles
-            </a>
-            <a href="/about" className="hover:text-[#005246]">
-              About
-            </a>
-            <a href="/contact" className="hover:text-[#005246]">
-              Contact
-            </a>
-            <button className="mt-3 bg-[#005246] text-white px-4 py-2 rounded-full hover:bg-[#00735f] transition-colors">
-              Login
-            </button>
+            </Link>
+            <Link to="/homestays" className="hover:text-[#005246]" onClick={() => setMenuOpen(false)}>
+              Homestays
+            </Link>
+
+            {/* Mobile only: include main links & login */}
+            <div className="lg:hidden mt-2 border-t border-gray-200 pt-2 space-y-2">
+              <Link to="/" className="hover:text-[#005246]" onClick={() => setMenuOpen(false)}>
+                Home
+              </Link>
+              <Link to="/tours" className="hover:text-[#005246]" onClick={() => setMenuOpen(false)}>
+                Tours
+              </Link>
+              <Link to="/about" className="hover:text-[#005246]" onClick={() => setMenuOpen(false)}>
+                About
+              </Link>
+              <Link to="/contact" className="hover:text-[#005246]" onClick={() => setMenuOpen(false)}>
+                Contact
+              </Link>
+              <button className="mt-2 w-full bg-gradient-to-r from-[#005246] to-[#007f67] text-white px-4 py-2 rounded-full font-semibold shadow-md hover:scale-105 transition-transform">
+                Login
+              </button>
+            </div>
           </div>
         </div>
       )}

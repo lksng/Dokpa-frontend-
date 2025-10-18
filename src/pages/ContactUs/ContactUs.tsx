@@ -11,14 +11,6 @@ const ContactUs: React.FC = () => {
         
         {/* Left Side - Info */}
         <div>
-          {/* Back Button */}
-          <button
-            onClick={() => navigate("/")}
-            className="mb-6 flex items-center gap-2 text-[#005246] hover:text-[#00735f] font-medium transition"
-          >
-            <ArrowLeft size={20} />
-            Back to Home
-          </button>
 
           <h2 className="text-4xl lg:text-5xl font-bold text-black mb-6 leading-tight">
             Get in <span className="text-[#005246]">Touch</span>

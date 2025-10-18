@@ -11,17 +11,6 @@ export default function AboutPage()  {
 
   return (
     <main className="min-h-screen bg-white text-slate-800 antialiased">
-
-         {/* 🏠 Floating Home Button */}
-      <a
-        href="/"
-        className="fixed top-5 left-5 z-50 flex items-center gap-2 px-3 py-2 rounded-full shadow-md hover:shadow-lg transition text-white"
-        style={{ backgroundColor: COLORS.primary }}
-      >
-        <Home className="w-4 h-4" />
-        <span className="text-sm font-medium">Home</span>
-      </a>
-
       {/* Hero / Roots */}
       <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#f4faf7] to-white">
         <div className="container mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">

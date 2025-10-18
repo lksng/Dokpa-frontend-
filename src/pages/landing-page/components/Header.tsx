@@ -3,7 +3,8 @@ import { Search, Users, Clock, Calendar, FileText } from "lucide-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Weather from "./Weather";
-import Navbar from "../../../components/navbar";
+// import Navbar from "../../../components/navbar";
+import { motion } from "framer-motion";
 
 interface Place {
   name: string;
@@ -59,7 +60,6 @@ const Header: React.FC = () => {
     console.log({ searchLocation });
   };
 
-  // Get visible thumbnails
   const getVisibleThumbnails = () => {
     const imgs = [];
     for (let i = 0; i < 4; i++) {
@@ -86,16 +86,27 @@ const Header: React.FC = () => {
 
   return (
     <div className="w-full">
+      {/* Navbar optional */}
       {/* <Navbar /> */}
 
-      {/* Hero Content with matching navbar width constraints */}
-    <div className="w-full max-w-7xl lg:max-w-12xl xl:max-w-10xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-8 lg:py-10">
-
+      <div className="w-full max-w-7xl mx-auto px-0 sm:px-0 lg:px-8 py-2 sm:py-8 lg:py-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8 lg:gap-12 items-start">
-          {/* Left Section (Heading + Filters + Weather + Permit) */}
-          <div className="lg:col-span-5 space-y-4 sm:space-y-6">
+
+          {/* Left Section */}
+          <motion.div
+            className="lg:col-span-5 space-y-4 sm:space-y-6"
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             {/* Heading */}
-            <div className="mb-4 text-center lg:text-left">
+            <motion.div
+              className="mb-4 text-center lg:text-left"
+              initial={{ opacity: 0, y: -30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
               <h1 className="text-2xl sm:text-4xl md:text-5xl font-light text-gray-900 leading-snug sm:leading-tight">
                 Transform your
                 <br />
@@ -103,12 +114,16 @@ const Header: React.FC = () => {
                   Travelling Experience
                 </span>
               </h1>
-            </div>
+            </motion.div>
 
             {/* Filters + Search */}
-            <div
+            <motion.div
               className="rounded-xl sm:rounded-2xl p-3 sm:p-5 md:p-6 w-full space-y-3 sm:space-y-4 shadow-lg"
               style={{ backgroundColor: themeColor }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              viewport={{ once: true }}
             >
               {/* Filters */}
               <div className="flex flex-wrap gap-2 sm:gap-3 items-center text-xs sm:text-sm">
@@ -189,34 +204,31 @@ const Header: React.FC = () => {
                 <input
                   type="text"
                   placeholder="Search by homestay or location..."
-                  className="w-full p-2 sm:p-3 rounded-md sm:rounded-lg 
-                    text-gray-800 placeholder-gray-400 
-                    focus:outline-none focus:ring-2 focus:ring-[#005246] 
-                    bg-white text-xs sm:text-sm"
+                  className="w-full p-2 sm:p-3 rounded-md sm:rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#005246] bg-white text-xs sm:text-sm"
                   value={searchLocation}
                   onChange={(e) => setSearchLocation(e.target.value)}
                 />
                 <button
-                  className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 
-                    bg-[#005246] text-white px-2 sm:px-3 py-1 sm:py-2 
-                    rounded-md sm:rounded-lg flex items-center gap-1 
-                    text-xs sm:text-sm hover:bg-green-700 transition"
+                  className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 bg-[#005246] text-white px-2 sm:px-3 py-1 sm:py-2 rounded-md sm:rounded-lg flex items-center gap-1 text-xs sm:text-sm hover:bg-green-700 transition"
                   onClick={handleSearchClick}
                 >
                   <Search className="w-3 h-3 sm:w-4 sm:h-4" />
                   Search
                 </button>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Weather + Permit Section */}
-            <div className="mt-2 sm:mt-4 flex flex-col sm:flex-row gap-3">
-              {/* Weather */}
+            {/* Weather + Permit */}
+            <motion.div
+              className="mt-2 sm:mt-4 flex flex-col sm:flex-row gap-3"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
               <div className="flex-1">
                 <Weather />
               </div>
-
-              {/* Permit Info */}
               <div className="flex-1 bg-white/90 rounded-xl shadow-md p-3 flex items-start gap-2 border border-[#007a60]/40">
                 <FileText className="w-6 h-6 text-green-700 mt-1" />
                 <div>
@@ -236,22 +248,38 @@ const Header: React.FC = () => {
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Right Section (Images) */}
-          <div className="lg:col-span-7 flex flex-col gap-3 sm:gap-5 order-first lg:order-last">
-            {/* Main Image */}
-            <div className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-lg">
+          <motion.div
+            className="lg:col-span-7 flex flex-col gap-3 sm:gap-5 order-first lg:order-last"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+          >
+            <motion.div
+              className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-lg"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8 }}
+            >
               <img
                 src={currentPlace.images[currentIndex]}
                 alt={currentPlace.name}
                 className="w-full h-[200px] sm:h-[260px] md:h-[350px] lg:h-[480px] object-cover transition-all duration-500"
               />
-            </div>
+            </motion.div>
 
             {/* Thumbnails */}
-            <div className="flex items-center justify-center gap-2 sm:gap-4 relative">
+            <motion.div
+              className="flex items-center justify-center gap-2 sm:gap-4 relative"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+            >
               <button
                 className="bg-white rounded-full p-1 sm:p-2 shadow hover:bg-gray-100 absolute left-0 -translate-y-1/2 top-1/2 z-10"
                 onClick={handleThumbLeft}
@@ -261,21 +289,21 @@ const Header: React.FC = () => {
               </button>
               <div className="flex gap-2 sm:gap-4 overflow-hidden w-full justify-center">
                 {getVisibleThumbnails().map((img, i) => (
-                  <div
+                  <motion.div
                     key={i}
-                    className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 
-                      rounded-lg sm:rounded-xl overflow-hidden shadow-md 
-                      bg-gray-200 cursor-pointer hover:scale-105 transition"
+                    className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-lg sm:rounded-xl overflow-hidden shadow-md bg-gray-200 cursor-pointer hover:scale-105 transition"
                     onClick={() =>
                       setCurrentIndex((startIndex + i) % currentPlace.images.length)
                     }
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 200 }}
                   >
                     <img
                       src={img}
                       alt={`${currentPlace.name} ${i + 1}`}
                       className="w-full h-full object-cover"
                     />
-                  </div>
+                  </motion.div>
                 ))}
               </div>
               <button
@@ -285,15 +313,24 @@ const Header: React.FC = () => {
               >
                 ›
               </button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
 
-      {/* Popup Modal */}
+      {/* Popup */}
       {showPopup && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 w-[90%] max-w-md text-center">
+        <motion.div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <motion.div
+            className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 w-[90%] max-w-md text-center"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
             <h2 className="text-xl sm:text-2xl font-bold text-[#005246] mb-4">
               Confirm Your Trip
             </h2>
@@ -325,17 +362,7 @@ const Header: React.FC = () => {
             <div className="mt-6 flex justify-center gap-4">
               <button
                 className="px-4 py-2 rounded-lg font-semibold bg-[#005246] text-white hover:bg-green-700 transition"
-                onClick={() => {
-                  console.log({
-                    searchLocation,
-                    startDate,
-                    endDate,
-                    budget,
-                    guests,
-                    days,
-                  });
-                  setShowPopup(false);
-                }}
+                onClick={() => setShowPopup(false)}
               >
                 Confirm
               </button>
@@ -346,8 +373,8 @@ const Header: React.FC = () => {
                 Cancel
               </button>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
     </div>
   );
